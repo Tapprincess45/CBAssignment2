@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Blog Weather Chatbot</title>
+</head>
+<body>
+    <h1>Travel Blog Weather Chatbot</h1>
+    <div>
+        <form method="POST" action="{{ url_for('get_weather') }}">
+            <label for="user_message">Enter location:</label>
+            <input type="text" id="user_message" name="user_message" required>
+            <button type="submit">Get Weather</button>
+        </form>
+    </div>
+    <div>
+        <p>User: {{ user_message }}</p>
+        <p>Bot: {{ bot_response }}</p>
+        {% if weather_data %}
+            <h2>Weather Data for {{ user_message }}</h2>
+            <ul>
+                {% for entry in weather_data['list'] %}
+                    <li>Date: {{ entry['dt_txt'] }}, Temperature: {{ entry['main']['temp'] }}°C, Description: {{ entry['weather'][0]['description'] }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+</body>
+</html>
